@@ -1,0 +1,23 @@
+//codigos fonte>main
+package projetopraticohibernate;
+
+import br.com.projetopraticohibernate.model.Cliente;
+import br.com.projetopraticohibernate.model.dao.ClienteDao;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author ADM
+ */
+public class ProjetoPraticoHibernate {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Cliente cliente = new Cliente();
+        cliente.setNome(JOptionPane.showInputDialog("Digite o Nome"));
+        ClienteDao dao= new ClienteDao();
+        dao.inserirCliente(cliente);
+    }   
+}
