@@ -1,0 +1,21 @@
+//codigos fonte>br.com.projeto.factory
+
+package br.com.projetopraticohibernate.factory;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+/**
+ fabrica de excessoes
+ * @author ADM
+ */
+public class HibernateControl {
+    private final SessionFactory factory;
+    public HibernateControl(){ //construtor para iniciar a factory
+        this.factory= new AnnotationConfiguration().configure().buildSessionFactory();
+    }
+    public Session getSession(){
+        return factory.openSession();
+    }
+}
