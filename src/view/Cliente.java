@@ -16,7 +16,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         conexao1=Conexao.conector();
     }
 
-    private void consultar(){
+    public void consultar(){
         String sql= "select * from tbcliente where idcliente=?";
         try {
             pst=conexao1.prepareStatement(sql); // le o comando da string
@@ -89,6 +89,9 @@ public class Cliente extends javax.swing.JInternalFrame {
             pst.setString(17, jTextFieldRua2.getText());
             pst.setString(18,jTextFieldNumero2.getText());   
             
+            
+            
+            
             if ((jTextFieldCpf.getText().isEmpty())||(jTextFieldNome.getText().isEmpty())||(jTextFieldEmail.getText().isEmpty() )
                     ||(jTextFieldEstado1.getText().isEmpty())||(jTextFieldTel.getText().isEmpty())||(jTextFieldSenha.getText().isEmpty())||
                     (jTextFieldNumero1.getText().isEmpty())||(jTextFieldRua1.getText().isEmpty())||(jTextFieldBairro1.getText().isEmpty())||
@@ -116,14 +119,13 @@ public class Cliente extends javax.swing.JInternalFrame {
                 jTextFieldBairro2.setText(null);
                 jTextFieldRua2.setText(null);
                 jTextFieldNumero2.setText(null);
-                jTextFieldCpf.setText(null);
+                jTextFieldCpf.setText("");
             }
              }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e);
-        }
+            JOptionPane.showMessageDialog(null,"CPF existente");
     }
-    
+    }
     private void alterar(){
         String sql="update tbcliente set nome_cliente=?,email_cliente=?, telefone_cliente=?, senha_cliente=?, cep_cliente=?, cidade_cliente=?, estado_cliente=?, bairro_cliente=?, rua_cliente=?, numero_cliente=?, cep2_cliente=?, cidade2_cliente=?, estado2_cliente=?, bairro2_cliente=?, rua2_cliente=?, numero2_cliente=? where idcliente=?";
         try {
@@ -689,6 +691,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         jTextFieldBairro2.setText("");
         jTextFieldRua2.setText("");
         jTextFieldNumero2.setText("");
+        jTextFieldCpf.setText("");
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -18,6 +18,7 @@ public class Venda extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     public Venda() {
+        
         initComponents();
         conexao1=Conexao.conector();
     }
@@ -31,21 +32,108 @@ public class Venda extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelVenda = new javax.swing.JPanel();
+        jButtonStatusVenda = new javax.swing.JButton();
+        jButtonCadastroVenda = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+
+        jButtonStatusVenda.setText("Alterar Status venda");
+        jButtonStatusVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStatusVendaActionPerformed(evt);
+            }
+        });
+
+        jButtonCadastroVenda.setText("Cadastrar  venda");
+        jButtonCadastroVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastroVendaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Voltar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelVendaLayout = new javax.swing.GroupLayout(jPanelVenda);
+        jPanelVenda.setLayout(jPanelVendaLayout);
+        jPanelVendaLayout.setHorizontalGroup(
+            jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelVendaLayout.createSequentialGroup()
+                .addGroup(jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelVendaLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jButton1))
+                    .addGroup(jPanelVendaLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonCadastroVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(jButtonStatusVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(714, Short.MAX_VALUE))
+        );
+        jPanelVendaLayout.setVerticalGroup(
+            jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelVendaLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jButtonCadastroVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonStatusVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(jButton1)
+                .addContainerGap(367, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jPanelVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(jPanelVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCadastroVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroVendaActionPerformed
+        Compra obj = new Compra();
+        jPanelVenda.add(obj);
+       jPanelVenda.repaint();
+        jButtonCadastroVenda.setVisible(false);
+        jButtonStatusVenda.setVisible(false);
+       jButton1.setVisible(false);
+        obj.setVisible(true);       
+    }//GEN-LAST:event_jButtonCadastroVendaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonStatusVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusVendaActionPerformed
+        GerenciarStatusVenda obj = new GerenciarStatusVenda();
+        jPanelVenda.add(obj);
+        //jButtonCadastroVenda.setVisible(false);
+       // jButtonStatusVenda.setVisible(false);
+        //jButton1.setVisible(false);
+        obj.setVisible(true);     
+
+
+
+    }//GEN-LAST:event_jButtonStatusVendaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCadastroVenda;
+    private javax.swing.JButton jButtonStatusVenda;
+    private javax.swing.JPanel jPanelVenda;
     // End of variables declaration//GEN-END:variables
 }

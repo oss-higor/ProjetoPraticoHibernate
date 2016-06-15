@@ -29,39 +29,7 @@ public class Produto extends javax.swing.JInternalFrame {
         conexao1=Conexao.conector();
     }
       
-    private void alterar(){
-        String sql="update tbproduto set descricao_produto=?,categoria_produto=?,valor_produto=?,estoque_produto=? where cod_produto=?";
-        try{
-            pst=conexao1.prepareStatement(sql);
-            
-            pst.setString(1,jLabelCodigo_produto.getText());
-            pst.setString(2,jTextFieldDescricao_produto.getText());
-            pst.setString(3,jTextFieldCategoria_produto.getText());
-            pst.setString(4, jTextFieldValor_produto.getText());
-            pst.setString(5, jTextFieldEstoque_produto.getText());
-         
-            if ((jTextFieldDescricao_produto.getText().isEmpty())||(jTextFieldCategoria_produto.getText().isEmpty())||(jTextFieldValor_produto.getText().isEmpty() )
-                    ||(jTextFieldEstoque_produto.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null,"Necessário preencher todos os campos!");
-            } else {
-           
-   
-            int status=pst.executeUpdate();
-            if(status>0){
-                 JOptionPane.showMessageDialog(null,"Produto alterado");
-                jLabelCodigo_produto.setText(null);
-                jTextFieldDescricao_produto.setText(null);
-                jTextFieldCategoria_produto.setText(null);
-                jTextFieldEstoque_produto.setText(null);
-                jTextFieldValor_produto.setText(null);
-            }
-             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e);
-        }
-    }
-    
-    
+   /*
     private void remover(){
         int confirmar=JOptionPane.showConfirmDialog(null,"Certeza?","Atenção",JOptionPane.YES_NO_OPTION);
             if(confirmar==JOptionPane.YES_OPTION){
@@ -84,7 +52,7 @@ public class Produto extends javax.swing.JInternalFrame {
                 }
                 }
     }
-    
+    */
     
 
     /**
@@ -113,7 +81,7 @@ public class Produto extends javax.swing.JInternalFrame {
         jButtonConsultar = new javax.swing.JButton();
         JTconsulta_codigo = new javax.swing.JTextField();
         jLabelCodigo_produto = new javax.swing.JTextField();
-        jTextFieldValor_produto = new javax.swing.JFormattedTextField();
+        jTextFieldValor_produto = new javax.swing.JTextField();
 
         jLabel1.setText("Informações Produto");
 
@@ -175,12 +143,6 @@ public class Produto extends javax.swing.JInternalFrame {
             }
         });
 
-        try {
-            jTextFieldValor_produto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###,##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,9 +170,9 @@ public class Produto extends javax.swing.JInternalFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel6)
                                                 .addGap(25, 25, 25)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldEstoque_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextFieldValor_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextFieldEstoque_produto, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldValor_produto))
                                         .addGap(100, 100, 100))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -267,7 +229,7 @@ public class Produto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JTconsulta_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 177, Short.MAX_VALUE))
+                .addGap(0, 181, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(368, Short.MAX_VALUE)
@@ -284,7 +246,18 @@ public class Produto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        alterar();
+        prod.setCod_produto(jLabelCodigo_produto.getText());
+        prod.setDescricao_produto(jTextFieldDescricao_produto.getText());
+        prod.setCategoria_produto(jTextFieldCategoria_produto.getText());
+        prod.setEstoque_produto(Integer.parseInt(jTextFieldEstoque_produto.getText()));
+        prod.setValor_produto(Double.parseDouble(jTextFieldValor_produto.getText()));    
+        if(proDao.alterar(prod)){
+            jLabelCodigo_produto.setText(null);
+            jTextFieldDescricao_produto.setText(null);
+            jTextFieldCategoria_produto.setText(null);
+            jTextFieldEstoque_produto.setText(null);
+            jTextFieldValor_produto.setText(null); 
+        }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
@@ -311,7 +284,15 @@ public class Produto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        remover();
+        String campo_pesquisa = JTconsulta_codigo.getText();
+        
+        if(proDao.remover(campo_pesquisa)){
+            jLabelCodigo_produto.setText(null);
+            jTextFieldDescricao_produto.setText(null);
+            jTextFieldCategoria_produto.setText(null);
+            jTextFieldEstoque_produto.setText(null);
+            jTextFieldValor_produto.setText(null);
+        }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -357,6 +338,6 @@ public class Produto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldCategoria_produto;
     private javax.swing.JTextField jTextFieldDescricao_produto;
     private javax.swing.JTextField jTextFieldEstoque_produto;
-    private javax.swing.JFormattedTextField jTextFieldValor_produto;
+    private javax.swing.JTextField jTextFieldValor_produto;
     // End of variables declaration//GEN-END:variables
 }

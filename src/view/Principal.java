@@ -22,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        this.setExtendedState(this.getExtendedState()|Principal.MAXIMIZED_BOTH);
         //setExtendedState(MAXIMIZED_BOTH);
         conexao1=Conexao.conector();
         if(conexao1!=null){
@@ -148,7 +149,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButtonVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendaActionPerformed
         Venda obj = new Venda();
-        jPanelPrincipal.add(obj);
+       jPanelPrincipal.add(obj);
         obj.setVisible(true);
         
     }//GEN-LAST:event_jButtonVendaActionPerformed
@@ -202,7 +203,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelsatus;
-    private javax.swing.JPanel jPanelPrincipal;
+    public javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

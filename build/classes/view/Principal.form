@@ -66,6 +66,9 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanelPrincipal">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
