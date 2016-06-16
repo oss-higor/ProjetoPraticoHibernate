@@ -24,13 +24,13 @@ import javax.swing.JOptionPane;
  * @author ADM
  */
 public class Compra extends javax.swing.JFrame {
+
     ArrayList<Double> total = new ArrayList<>();
     Connection conexao1 = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    int UltimaChave, last, paradaExecucao=0;
-    
-    
+    int UltimaChave, last, paradaExecucao = 0;
+
     /**
      * Creates new form Compra
      */
@@ -482,39 +482,38 @@ public class Compra extends javax.swing.JFrame {
         }
     }
 
-    public void retornarUltimaChaveProduto(){
-    
-            String sql2= "select CHAVE_ from tbcomprados order by CHAVE_ desc limit 1";
-                try {
-                pst=conexao1.prepareStatement(sql2);
-               
-                rs = pst.executeQuery();
-                if(rs.last()==true){
-                UltimaChave= ( Integer.parseInt(rs.getString(1)));
-                
-                
-                }else if(rs.last()==false){
-                    JOptionPane.showMessageDialog(null,"nao pegou o ultimo");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+    public void retornarUltimaChaveProduto() {
+
+        String sql2 = "select CHAVE_ from tbcomprados order by CHAVE_ desc limit 1";
+        try {
+            pst = conexao1.prepareStatement(sql2);
+
+            rs = pst.executeQuery();
+            if (rs.last() == true) {
+                UltimaChave = (Integer.parseInt(rs.getString(1)));
+
+            } else if (rs.last() == false) {
+                JOptionPane.showMessageDialog(null, "nao pegou o ultimo");
             }
-}
-    
-    public void adicionarProduto() {
-        if(paradaExecucao==0){
-             retornarUltimaChaveProduto();
-             last = UltimaChave;
-             paradaExecucao=1;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-       
+    }
+
+    public void adicionarProduto() {
+        if (paradaExecucao == 0) {
+            retornarUltimaChaveProduto();
+            last = UltimaChave;
+            paradaExecucao = 1;
+        }
+
         int indice = jTable1.getSelectedRow();
         String descricao, valorUnitario;
         double valorParcial;
         valorUnitario = (String) (jTable1.getValueAt(indice, 1));
 
         valorParcial = (Double.parseDouble(valorUnitario) * Double.parseDouble(quantidade.getText()));
-        
+
         total.add(valorParcial);
 
         descricao = (String) jTable1.getValueAt(indice, 0);
@@ -548,26 +547,25 @@ public class Compra extends javax.swing.JFrame {
                 + "valor_total, cep_venda,"
                 + "estado_venda,cidade_venda,bairro_venda, rua_venda, numero_venda)"
                 + "values(?,?,?,?,?,?,?,?,?,?,?)";
-  
-   
+
         try {
             pst = conexao1.prepareStatement(sql);
             pst.setString(1, Integer.toString(UltimaChave));
             pst.setString(2, CPF.getText());
-            pst.setInt(3,(Integer.parseInt(data_venda.getText())));
-           // Date d=Date.valueOf(data_venda.getText());
+            pst.setInt(3, (Integer.parseInt(data_venda.getText())));
+            // Date d=Date.valueOf(data_venda.getText());
             //SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-           // String data = data_venda.getText();
-           // Calendar c = Calendar.getInstance();
-          //  c.setTime(formatoData.parse(data));
-          //  pst.setDate(3,java.sql.Date.from(c.getTime()));
+            // String data = data_venda.getText();
+            // Calendar c = Calendar.getInstance();
+            //  c.setTime(formatoData.parse(data));
+            //  pst.setDate(3,java.sql.Date.from(c.getTime()));
             pst.setString(4, "pendente");
-            double vTotal = 0; 
-            for(double i: total){
-                vTotal+=i;
+            double vTotal = 0;
+            for (double i : total) {
+                vTotal += i;
             }
-           
-            pst.setString(5,Double.toString(vTotal));
+
+            pst.setString(5, Double.toString(vTotal));
 
             if (jComboBox1.getSelectedIndex() == 2 && CEP2.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Endereço inexistente");
@@ -618,14 +616,13 @@ public class Compra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         //JOptionPane.showMessageDialog(null, linha);
-       //String sql = "insert into tbvenda (valorprod_venda,descricao_venda,quantidade_venda,valor_total)values(?,?,?,?)";
-
+        //String sql = "insert into tbvenda (valorprod_venda,descricao_venda,quantidade_venda,valor_total)values(?,?,?,?)";
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -637,10 +634,9 @@ public class Compra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonFinalizarVendaActionPerformed
 
     private void jButtonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProdutoActionPerformed
- 
-        
+
         adicionarProduto();
-        
+
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
 
