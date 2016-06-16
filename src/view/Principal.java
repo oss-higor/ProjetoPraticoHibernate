@@ -142,22 +142,19 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClienteActionPerformed
-        Cliente obj = new Cliente();
-        jPanelPrincipal.add(obj);
-        obj.setVisible(true);
+        new Cliente().setVisible(true);
+       // Cliente obj = new Cliente();
+       // jPanelPrincipal.add(obj);
+       // obj.setVisible(true);
     }//GEN-LAST:event_jButtonClienteActionPerformed
 
     private void jButtonVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendaActionPerformed
-        Venda obj = new Venda();
-       jPanelPrincipal.add(obj);
-        obj.setVisible(true);
-        
+     new Venda().setVisible(true);
+       
     }//GEN-LAST:event_jButtonVendaActionPerformed
 
     private void jButtonProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProdutoActionPerformed
-        Produto obj = new Produto();
-        jPanelPrincipal.add(obj);
-        obj.setVisible(true);
+        new Produto().setVisible(true);
     }//GEN-LAST:event_jButtonProdutoActionPerformed
 
     /**

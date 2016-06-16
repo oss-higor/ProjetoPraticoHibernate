@@ -8,8 +8,11 @@ package view;
 import Banco.Conexao;
 import Dao.ProdutoDao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -18,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author ADM
  */
-public class Compra extends javax.swing.JInternalFrame {
+public class Compra extends javax.swing.JFrame {
     ArrayList<Double> total = new ArrayList<>();
     Connection conexao1 = null;
     PreparedStatement pst = null;
@@ -90,12 +93,12 @@ public class Compra extends javax.swing.JInternalFrame {
         jLabelEmail = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        data_venda = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         quantidade = new javax.swing.JTextField();
         jButtonFinalizarVenda = new javax.swing.JButton();
         jButtonAddProduto = new javax.swing.JButton();
+        data_venda = new javax.swing.JFormattedTextField();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Endereço 1", "Endereço 2" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +199,12 @@ public class Compra extends javax.swing.JInternalFrame {
                 jButtonAddProdutoActionPerformed(evt);
             }
         });
+
+        try {
+            data_venda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,7 +315,7 @@ public class Compra extends javax.swing.JInternalFrame {
                                     .addGap(45, 45, 45)
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(data_venda, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(data_venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(360, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -321,9 +330,9 @@ public class Compra extends javax.swing.JInternalFrame {
                             .addComponent(jButtonBuscar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(data_venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(data_venda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,7 +421,7 @@ public class Compra extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButtonFinalizarVenda))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -519,12 +528,14 @@ public class Compra extends javax.swing.JInternalFrame {
 //        } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, e);
 //        }
-
+   
         try {
             pst = conexao1.prepareStatement(sql);
             pst.setString(1, Integer.toString(i));
             pst.setString(2, CPF.getText());
-            pst.setString(3, data_venda.getText());
+            pst.setString(3,(data_venda.getText()));
+           // Date d=Date.valueOf(data_venda.getText());
+           // pst.setDate(3, new java.sql.Date(d.getDate()));
             pst.setString(4, "pendente");
             double vTotal = 0; 
             for(double i: total){
@@ -626,7 +637,7 @@ public class Compra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel UF1;
     private javax.swing.JLabel UF2;
     private javax.swing.JTextField campo_cpf_compra;
-    private javax.swing.JTextField data_venda;
+    private javax.swing.JFormattedTextField data_venda;
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddProduto;

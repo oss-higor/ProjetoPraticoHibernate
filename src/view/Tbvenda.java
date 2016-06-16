@@ -29,9 +29,6 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Tbvenda.findByCpfCliente", query = "SELECT t FROM Tbvenda t WHERE t.cpfCliente = :cpfCliente"),
     @NamedQuery(name = "Tbvenda.findByDataVenda", query = "SELECT t FROM Tbvenda t WHERE t.dataVenda = :dataVenda"),
     @NamedQuery(name = "Tbvenda.findByStatusVenda", query = "SELECT t FROM Tbvenda t WHERE t.statusVenda = :statusVenda"),
-    @NamedQuery(name = "Tbvenda.findByValorprodVenda", query = "SELECT t FROM Tbvenda t WHERE t.valorprodVenda = :valorprodVenda"),
-    @NamedQuery(name = "Tbvenda.findByDescricaoVenda", query = "SELECT t FROM Tbvenda t WHERE t.descricaoVenda = :descricaoVenda"),
-    @NamedQuery(name = "Tbvenda.findByQuantidadeVenda", query = "SELECT t FROM Tbvenda t WHERE t.quantidadeVenda = :quantidadeVenda"),
     @NamedQuery(name = "Tbvenda.findByValorTotal", query = "SELECT t FROM Tbvenda t WHERE t.valorTotal = :valorTotal"),
     @NamedQuery(name = "Tbvenda.findByCepVenda", query = "SELECT t FROM Tbvenda t WHERE t.cepVenda = :cepVenda"),
     @NamedQuery(name = "Tbvenda.findByEstadoVenda", query = "SELECT t FROM Tbvenda t WHERE t.estadoVenda = :estadoVenda"),
@@ -58,15 +55,6 @@ public class Tbvenda implements Serializable {
     @Basic(optional = false)
     @Column(name = "status_venda")
     private String statusVenda;
-    @Basic(optional = false)
-    @Column(name = "valorprod_venda")
-    private String valorprodVenda;
-    @Basic(optional = false)
-    @Column(name = "descricao_venda")
-    private String descricaoVenda;
-    @Basic(optional = false)
-    @Column(name = "quantidade_venda")
-    private String quantidadeVenda;
     @Basic(optional = false)
     @Column(name = "valor_total")
     private String valorTotal;
@@ -96,14 +84,11 @@ public class Tbvenda implements Serializable {
         this.codVenda = codVenda;
     }
 
-    public Tbvenda(String codVenda, String cpfCliente, String dataVenda, String statusVenda, String valorprodVenda, String descricaoVenda, String quantidadeVenda, String valorTotal, String cepVenda, String estadoVenda, String cidadeVenda, String bairroVenda, String ruaVenda, String numeroVenda) {
+    public Tbvenda(String codVenda, String cpfCliente, String dataVenda, String statusVenda, String valorTotal, String cepVenda, String estadoVenda, String cidadeVenda, String bairroVenda, String ruaVenda, String numeroVenda) {
         this.codVenda = codVenda;
         this.cpfCliente = cpfCliente;
         this.dataVenda = dataVenda;
         this.statusVenda = statusVenda;
-        this.valorprodVenda = valorprodVenda;
-        this.descricaoVenda = descricaoVenda;
-        this.quantidadeVenda = quantidadeVenda;
         this.valorTotal = valorTotal;
         this.cepVenda = cepVenda;
         this.estadoVenda = estadoVenda;
@@ -151,36 +136,6 @@ public class Tbvenda implements Serializable {
         String oldStatusVenda = this.statusVenda;
         this.statusVenda = statusVenda;
         changeSupport.firePropertyChange("statusVenda", oldStatusVenda, statusVenda);
-    }
-
-    public String getValorprodVenda() {
-        return valorprodVenda;
-    }
-
-    public void setValorprodVenda(String valorprodVenda) {
-        String oldValorprodVenda = this.valorprodVenda;
-        this.valorprodVenda = valorprodVenda;
-        changeSupport.firePropertyChange("valorprodVenda", oldValorprodVenda, valorprodVenda);
-    }
-
-    public String getDescricaoVenda() {
-        return descricaoVenda;
-    }
-
-    public void setDescricaoVenda(String descricaoVenda) {
-        String oldDescricaoVenda = this.descricaoVenda;
-        this.descricaoVenda = descricaoVenda;
-        changeSupport.firePropertyChange("descricaoVenda", oldDescricaoVenda, descricaoVenda);
-    }
-
-    public String getQuantidadeVenda() {
-        return quantidadeVenda;
-    }
-
-    public void setQuantidadeVenda(String quantidadeVenda) {
-        String oldQuantidadeVenda = this.quantidadeVenda;
-        this.quantidadeVenda = quantidadeVenda;
-        changeSupport.firePropertyChange("quantidadeVenda", oldQuantidadeVenda, quantidadeVenda);
     }
 
     public String getValorTotal() {
