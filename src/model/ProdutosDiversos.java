@@ -10,9 +10,15 @@ package model;
  * @author ADM
  */
 public class ProdutosDiversos extends Produto {
-  private void MetodoFilha(){
-    //  System.out.println("Sou a filha");
-  }  
+  private String caracteristicaEspecifica;
+
+    public String getCaracteristicaEspecifica() {
+        return caracteristicaEspecifica;
+    }
+
+    public void setCaracteristicaEspecifica(String caracteristicaEspecifica) {
+        this.caracteristicaEspecifica = caracteristicaEspecifica;
+    }
 }
 
     

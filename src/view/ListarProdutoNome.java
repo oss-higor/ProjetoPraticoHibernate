@@ -21,6 +21,8 @@ public class ListarProdutoNome extends javax.swing.JFrame {
      */
     public ListarProdutoNome() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         conexao1=Conexao.conector();
     }
 

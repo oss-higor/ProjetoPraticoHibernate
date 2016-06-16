@@ -22,6 +22,8 @@ public class ListarProdutosExistentes extends javax.swing.JFrame {
     public ListarProdutosExistentes() {
         conexao1=Conexao.conector();
         initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**

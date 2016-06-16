@@ -13,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -26,13 +28,17 @@ public class Compra extends javax.swing.JFrame {
     Connection conexao1 = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    int UltimaChave, last, paradaExecucao=0;
+    
+    
     /**
      * Creates new form Compra
      */
     public Compra() {
         conexao1 = Conexao.conector();
         initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
     int i = 1;
     int j = 1;
@@ -213,9 +219,6 @@ public class Compra extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -315,7 +318,10 @@ public class Compra extends javax.swing.JFrame {
                                     .addGap(45, 45, 45)
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(data_venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(data_venda, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(280, 280, 280)
+                        .addComponent(jLabel5)))
                 .addContainerGap(360, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -341,7 +347,7 @@ public class Compra extends javax.swing.JFrame {
                             .addComponent(Nome))
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -408,7 +414,7 @@ public class Compra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +427,7 @@ public class Compra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButtonFinalizarVenda))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -476,7 +482,32 @@ public class Compra extends javax.swing.JFrame {
         }
     }
 
+    public void retornarUltimaChaveProduto(){
+    
+            String sql2= "select CHAVE_ from tbcomprados order by CHAVE_ desc limit 1";
+                try {
+                pst=conexao1.prepareStatement(sql2);
+               
+                rs = pst.executeQuery();
+                if(rs.last()==true){
+                UltimaChave= ( Integer.parseInt(rs.getString(1)));
+                
+                
+                }else if(rs.last()==false){
+                    JOptionPane.showMessageDialog(null,"nao pegou o ultimo");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+}
+    
     public void adicionarProduto() {
+        if(paradaExecucao==0){
+             retornarUltimaChaveProduto();
+             last = UltimaChave;
+             paradaExecucao=1;
+        }
+       
         int indice = jTable1.getSelectedRow();
         String descricao, valorUnitario;
         double valorParcial;
@@ -495,10 +526,13 @@ public class Compra extends javax.swing.JFrame {
             pst.setString(2, valorUnitario);
             pst.setString(3, quantidade.getText());
             pst.setString(4, descricao);
-            pst.setString(5, Integer.toString(i));
+            UltimaChave++;
+            pst.setString(5, Integer.toString(UltimaChave));
             pst.setString(6, Double.toString(valorParcial));
-            pst.setString(7, Integer.toString(j));
+            last++;
+            pst.setString(7, Integer.toString(last));
             pst.executeUpdate();
+            UltimaChave--;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -507,35 +541,26 @@ public class Compra extends javax.swing.JFrame {
     }
 
     public void preencherVenda() {
-        
+        UltimaChave++;
+        //retornarUltimaChaveProduto();
         int status = 0, verificaErro = 0;
         String sql = "insert into tbvenda(cod_venda, cpf_cliente, data_venda,status_venda, "
                 + "valor_total, cep_venda,"
                 + "estado_venda,cidade_venda,bairro_venda, rua_venda, numero_venda)"
                 + "values(?,?,?,?,?,?,?,?,?,?,?)";
-        ///fazer a logica da venda atual
-
-        //String sql2 = "select SUM(VALORPARCIAL_) from tbcomprados where CODVENDA_=?";
-       
-//        try {
-//            pst = conexao1.prepareStatement(sql2);
-//            pst.setString(1, Integer.toString(i));
-//            rs = pst.executeQuery(); // retorno da busca
-//            
-//            
-//            JOptionPane.showMessageDialog(null, resultado);
-//            
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
+  
    
         try {
             pst = conexao1.prepareStatement(sql);
-            pst.setString(1, Integer.toString(i));
+            pst.setString(1, Integer.toString(UltimaChave));
             pst.setString(2, CPF.getText());
-            pst.setString(3,(data_venda.getText()));
+            pst.setInt(3,(Integer.parseInt(data_venda.getText())));
            // Date d=Date.valueOf(data_venda.getText());
-           // pst.setDate(3, new java.sql.Date(d.getDate()));
+            //SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+           // String data = data_venda.getText();
+           // Calendar c = Calendar.getInstance();
+          //  c.setTime(formatoData.parse(data));
+          //  pst.setDate(3,java.sql.Date.from(c.getTime()));
             pst.setString(4, "pendente");
             double vTotal = 0; 
             for(double i: total){
@@ -593,7 +618,7 @@ public class Compra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -615,7 +640,7 @@ public class Compra extends javax.swing.JFrame {
  
         
         adicionarProduto();
-        j++;
+        
     }//GEN-LAST:event_jButtonAddProdutoActionPerformed
 
 

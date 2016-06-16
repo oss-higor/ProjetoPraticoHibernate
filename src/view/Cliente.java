@@ -13,6 +13,8 @@ public class Cliente extends javax.swing.JFrame {
     
     public Cliente() { //construtor para ligação com o bd
         initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         conexao1=Conexao.conector();
     }
 

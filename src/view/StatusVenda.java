@@ -21,6 +21,8 @@ public class StatusVenda extends javax.swing.JFrame {
     public StatusVenda() {
        conexao1 = Conexao.conector();
         initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
     
     /**

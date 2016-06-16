@@ -10,7 +10,7 @@ import java.sql.*;
  *
  * @author ADM
  */
-public class GerenciarStatusVenda extends javax.swing.JInternalFrame {
+public class GerenciarStatusVenda extends javax.swing.JFrame {
 Connection conexao1=null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -20,6 +20,8 @@ Connection conexao1=null;
     public GerenciarStatusVenda() {
         conexao1=Conexao.conector();
         initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**

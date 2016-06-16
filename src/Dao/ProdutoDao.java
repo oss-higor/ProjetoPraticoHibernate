@@ -32,6 +32,7 @@ public class ProdutoDao {
                 prod.setCategoria_produto(rs.getString(3));
                 prod.setValor_produto(Double.parseDouble(rs.getString(4)));
                 prod.setEstoque_produto(Integer.parseInt(rs.getString(5)));
+                prod.setCaracteristicaEspecifica(rs.getString(6));
                 return prod;
                 
             } else {
@@ -52,7 +53,7 @@ public class ProdutoDao {
     } 
 
     public boolean adicionar(ProdutosDiversos prod){
-             String sql= "insert into tbproduto(cod_produto, descricao_produto,categoria_produto,valor_produto,estoque_produto)values(?,?,?,?,?)";
+             String sql= "insert into tbproduto(cod_produto, descricao_produto,categoria_produto,valor_produto,estoque_produto,caracteristica_prod)values(?,?,?,?,?,?)";
         try {
             pst=conexao1.prepareStatement(sql);
             pst.setString(1,prod.getCod_produto());
@@ -60,7 +61,8 @@ public class ProdutoDao {
             pst.setString(3,prod.getCategoria_produto());
             pst.setString(4,Double.toString(prod.getValor_produto()));
             pst.setString(5,Integer.toString(prod.getEstoque_produto()));
-            
+            pst.setString(6, prod.getCaracteristicaEspecifica());
+      
             if ((prod.getDescricao_produto().isEmpty())||(prod.getCategoria_produto().isEmpty())||(Double.toString(prod.getValor_produto()).isEmpty() )|| prod.getValor_produto()==0
                     ||(prod.getEstoque_produto()==0)||(Integer.toString(prod.getEstoque_produto())).isEmpty()) {
                 JOptionPane.showMessageDialog(null,"Necessário preencher todos os campos!"); 
@@ -81,15 +83,16 @@ public class ProdutoDao {
     
     public boolean alterar(ProdutosDiversos prod){
         
-        String sql="update tbproduto set descricao_produto=?,categoria_produto=?,valor_produto=?,estoque_produto=? where cod_produto=?";
+        String sql="update tbproduto set descricao_produto=?,categoria_produto=?,valor_produto=?,"
+                + "estoque_produto=?,caracteristica_prod=? where cod_produto=?";
         try{
             pst=conexao1.prepareStatement(sql);
             pst.setString(1,prod.getDescricao_produto());
             pst.setString(2,prod.getCategoria_produto());
             pst.setString(3,Double.toString(prod.getValor_produto()));
             pst.setString(4,Integer.toString(prod.getEstoque_produto()));
-            pst.setString(5,prod.getCod_produto());
-             
+            pst.setString(5, prod.getCaracteristicaEspecifica()); 
+            pst.setString(6,prod.getCod_produto());
             int status=pst.executeUpdate();
             if(status>0){
                 JOptionPane.showMessageDialog(null,"Produto Alterado");
