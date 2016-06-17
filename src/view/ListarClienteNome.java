@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import Banco.Conexao;
@@ -11,10 +7,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author ADM
- */
+
 public class ListarClienteNome extends javax.swing.JFrame {
 Connection conexao1=null;
     PreparedStatement pst = null;
@@ -116,11 +109,9 @@ Connection conexao1=null;
     
     
     
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -142,9 +133,9 @@ Connection conexao1=null;
             java.util.logging.Logger.getLogger(ListarClienteNome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
+        
 
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ListarClienteNome().setVisible(true);

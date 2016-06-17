@@ -29,7 +29,8 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Tbproduto.findByDescricaoProduto", query = "SELECT t FROM Tbproduto t WHERE t.descricaoProduto = :descricaoProduto"),
     @NamedQuery(name = "Tbproduto.findByCategoriaProduto", query = "SELECT t FROM Tbproduto t WHERE t.categoriaProduto = :categoriaProduto"),
     @NamedQuery(name = "Tbproduto.findByValorProduto", query = "SELECT t FROM Tbproduto t WHERE t.valorProduto = :valorProduto"),
-    @NamedQuery(name = "Tbproduto.findByEstoqueProduto", query = "SELECT t FROM Tbproduto t WHERE t.estoqueProduto = :estoqueProduto")})
+    @NamedQuery(name = "Tbproduto.findByEstoqueProduto", query = "SELECT t FROM Tbproduto t WHERE t.estoqueProduto = :estoqueProduto"),
+    @NamedQuery(name = "Tbproduto.findByCaracteristicaProd", query = "SELECT t FROM Tbproduto t WHERE t.caracteristicaProd = :caracteristicaProd")})
 public class Tbproduto implements Serializable {
 
     @Transient
@@ -39,7 +40,7 @@ public class Tbproduto implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "cod_produto")
-    private Integer codProduto;
+    private String codProduto;
     @Basic(optional = false)
     @Column(name = "descricao_produto")
     private String descricaoProduto;
@@ -51,29 +52,33 @@ public class Tbproduto implements Serializable {
     private String valorProduto;
     @Basic(optional = false)
     @Column(name = "estoque_produto")
-    private int estoqueProduto;
+    private String estoqueProduto;
+    @Basic(optional = false)
+    @Column(name = "caracteristica_prod")
+    private String caracteristicaProd;
 
     public Tbproduto() {
     }
 
-    public Tbproduto(Integer codProduto) {
+    public Tbproduto(String codProduto) {
         this.codProduto = codProduto;
     }
 
-    public Tbproduto(Integer codProduto, String descricaoProduto, String categoriaProduto, String valorProduto, int estoqueProduto) {
+    public Tbproduto(String codProduto, String descricaoProduto, String categoriaProduto, String valorProduto, String estoqueProduto, String caracteristicaProd) {
         this.codProduto = codProduto;
         this.descricaoProduto = descricaoProduto;
         this.categoriaProduto = categoriaProduto;
         this.valorProduto = valorProduto;
         this.estoqueProduto = estoqueProduto;
+        this.caracteristicaProd = caracteristicaProd;
     }
 
-    public Integer getCodProduto() {
+    public String getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(Integer codProduto) {
-        Integer oldCodProduto = this.codProduto;
+    public void setCodProduto(String codProduto) {
+        String oldCodProduto = this.codProduto;
         this.codProduto = codProduto;
         changeSupport.firePropertyChange("codProduto", oldCodProduto, codProduto);
     }
@@ -108,14 +113,24 @@ public class Tbproduto implements Serializable {
         changeSupport.firePropertyChange("valorProduto", oldValorProduto, valorProduto);
     }
 
-    public int getEstoqueProduto() {
+    public String getEstoqueProduto() {
         return estoqueProduto;
     }
 
-    public void setEstoqueProduto(int estoqueProduto) {
-        int oldEstoqueProduto = this.estoqueProduto;
+    public void setEstoqueProduto(String estoqueProduto) {
+        String oldEstoqueProduto = this.estoqueProduto;
         this.estoqueProduto = estoqueProduto;
         changeSupport.firePropertyChange("estoqueProduto", oldEstoqueProduto, estoqueProduto);
+    }
+
+    public String getCaracteristicaProd() {
+        return caracteristicaProd;
+    }
+
+    public void setCaracteristicaProd(String caracteristicaProd) {
+        String oldCaracteristicaProd = this.caracteristicaProd;
+        this.caracteristicaProd = caracteristicaProd;
+        changeSupport.firePropertyChange("caracteristicaProd", oldCaracteristicaProd, caracteristicaProd);
     }
 
     @Override
