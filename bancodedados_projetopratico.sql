@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-Jun-2016 às 06:24
+-- Generation Time: 17-Jun-2016 às 15:58
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -54,10 +54,9 @@ CREATE TABLE IF NOT EXISTS `tbcliente` (
 --
 
 INSERT INTO `tbcliente` (`idcliente`, `nome_cliente`, `email_cliente`, `telefone_cliente`, `senha_cliente`, `cpf_cliente`, `cep_cliente`, `cidade_cliente`, `estado_cliente`, `bairro_cliente`, `rua_cliente`, `numero_cliente`, `cep2_cliente`, `cidade2_cliente`, `estado2_cliente`, `bairro2_cliente`, `rua2_cliente`, `numero2_cliente`) VALUES
-('1', 'a', 'a', 'a', 'a', '1', 'a', 'a', 'a', 'a', 'aa', 'a', '', '', '', '', '', ''),
-('111111', 'amanda', 'amanda', 'amanda', 'amanda', '111111', 'amanda', 'amanda', 'amanda', 'amanda', 'amanda', 'amanda', '', '', '', '', '', ''),
-('21424', 'higggor', 'higor1', 'higor', 'higor', '21424', 'higor', 'higor', 'higor', 'higor', 'higor', 'higor', '', '', '', '', '', ''),
-('32142', 'higor', 'higor', 'higor', 'higor', '32142', 'higor', 'higor', 'higor', 'higor', 'higor', 'higor', '', '', '', '', '', '');
+('11111111111', '1', '1', '11111111111111', '11111111111111111111', '11111111111', '11111111', '1', '1', '1', '1', '1111111', '        ', '', '', '', '', '       '),
+('14704299775', 'higor', 'oss.higor@gmail.com', '22981329635', 'secreta', '14704299775', '38810000', 'rio paranaiba', 'mg', 'universitario', 'avenida paraniba', '23', '', '', '', '', '', ''),
+('43136932897', 'amanda', 'amandagabriellat@gmail.com', '11982229180', 'amanda', '43136932897', '38810000', 'rio paranaiba', 'mg', 'centro', 'coronel teodomiro rocha', '870', '320000', 'barueri ', 'sp', 'alphaville', 'alameda belgrado', '234');
 
 -- --------------------------------------------------------
 
@@ -81,7 +80,14 @@ CREATE TABLE IF NOT EXISTS `tbcomprados` (
 --
 
 INSERT INTO `tbcomprados` (`CPF_`, `VALORUNITARIO_`, `QUANTIDADE_`, `DESCRICAO_`, `CODVENDA_`, `VALORPARCIAL_`, `CHAVE_`) VALUES
-('1', '111.0', '1', 'aa', '1', '111.0', '1');
+('11111111111', '9999', '2', 'dorflex', '1', '19998.0', '1'),
+('11111111111', '4', '8', 'fralda', '1', '32.0', '2'),
+('11111111111', '9999', '3', 'dorflex', '1', '29997.0', '3'),
+('11111111111', '9999', '2', 'dorflex', '4', '19998.0', '4'),
+('11111111111', '4', '10', 'fralda', '4', '40.0', '5'),
+('11111111111', '9999', '1', 'dorflex', '6', '9999.0', '6'),
+('11111111111', '4', '1', 'fralda', '6', '4.0', '7'),
+('11111111111', '9999', '9', 'dorflex', '8', '89991.0', '8');
 
 -- --------------------------------------------------------
 
@@ -90,11 +96,12 @@ INSERT INTO `tbcomprados` (`CPF_`, `VALORUNITARIO_`, `QUANTIDADE_`, `DESCRICAO_`
 --
 
 CREATE TABLE IF NOT EXISTS `tbproduto` (
-  `cod_produto` int(11) NOT NULL,
+  `cod_produto` varchar(11) NOT NULL,
   `descricao_produto` varchar(100) NOT NULL,
   `categoria_produto` varchar(100) NOT NULL,
   `valor_produto` varchar(100) NOT NULL,
-  `estoque_produto` int(11) NOT NULL,
+  `estoque_produto` varchar(11) NOT NULL,
+  `caracteristica_prod` varchar(100) NOT NULL,
   PRIMARY KEY (`cod_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,8 +109,10 @@ CREATE TABLE IF NOT EXISTS `tbproduto` (
 -- Extraindo dados da tabela `tbproduto`
 --
 
-INSERT INTO `tbproduto` (`cod_produto`, `descricao_produto`, `categoria_produto`, `valor_produto`, `estoque_produto`) VALUES
-(11, 'aa', 'aa', '111.0', 111);
+INSERT INTO `tbproduto` (`cod_produto`, `descricao_produto`, `categoria_produto`, `valor_produto`, `estoque_produto`, `caracteristica_prod`) VALUES
+('1', 'dorflex', 'Remédios', '9999', '60', 'Genérico'),
+('2', 'cheiroso', 'Perfumaria', '11', '0', 'Importado'),
+('3', 'fralda', 'Higiene Pessoal', '4', '49', 'Ifantil');
 
 -- --------------------------------------------------------
 
@@ -112,9 +121,9 @@ INSERT INTO `tbproduto` (`cod_produto`, `descricao_produto`, `categoria_produto`
 --
 
 CREATE TABLE IF NOT EXISTS `tbvenda` (
-  `cod_venda` varchar(100) NOT NULL,
+  `cod_venda` double NOT NULL,
   `cpf_cliente` varchar(100) NOT NULL,
-  `data_venda` varchar(30) NOT NULL,
+  `data_venda` int(11) NOT NULL,
   `status_venda` varchar(100) NOT NULL,
   `valor_total` varchar(100) NOT NULL,
   `cep_venda` varchar(100) NOT NULL,
@@ -125,6 +134,16 @@ CREATE TABLE IF NOT EXISTS `tbvenda` (
   `numero_venda` varchar(100) NOT NULL,
   PRIMARY KEY (`cod_venda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tbvenda`
+--
+
+INSERT INTO `tbvenda` (`cod_venda`, `cpf_cliente`, `data_venda`, `status_venda`, `valor_total`, `cep_venda`, `estado_venda`, `cidade_venda`, `bairro_venda`, `rua_venda`, `numero_venda`) VALUES
+(1, '11111111111', 21212121, 'pendente', '50027.0', '11111111111', '1', '1', '1', '1', '1111111'),
+(4, '11111111111', 11212121, 'pendente', '20038.0', '11111111111', '1', '1', '1', '1', '1111111'),
+(6, '11111111111', 78677587, 'pendente', '10003.0', '11111111111', '1', '1', '1', '1', '1111111'),
+(8, '11111111111', 21212121, 'pendente', '89991.0', '11111111111', '1', '1', '1', '1', '1111111');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
